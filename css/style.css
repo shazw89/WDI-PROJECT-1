@@ -1,3 +1,28 @@
 body {
-  background-color: purple;
+  background-image: url('../images/segawa1.gif');
+  background-size: cover;
+  text-align: center;
+  font-family: 'Architects Daughter', cursive;
+}
+
+ul {
+  padding: 0;
+  height: 400px;
+  width: 500px;
+  margin: 50px auto;
+}
+
+li {
+  height: 96px;
+  width: 96px;
+  list-style-type: none;
+  border: 1px solid #000;
+  float: left;
+  box-sizing: border-box;
+}
+
+img {
+  width: 96px;
+  height: 96px;
+  float: left;
 }
