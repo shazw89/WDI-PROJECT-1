@@ -1,6 +1,6 @@
 $(init);
 
-var score;
+var turns;
 var cardsInPlay;
 var userChoices;
 var $grid;
@@ -21,6 +21,8 @@ var images = [
   'card10'
 ];
 
+
+
 function init() {
   $grid       = $('#grid');
   $reset      = $('#reset');
@@ -29,16 +31,16 @@ function init() {
 
   addCardsToPage();
 
-  $reset .on('click', resetBoard);
+  $reset.on('click', resetBoard);
   $grid.on('click', 'li.card', chooseCard);
 }
 
 function addCardsToPage() {
   $grid.html('');
-  score       = 0;
+  turns       = 0;
   cardsInPlay = shuffle(images.concat(images));
   userChoices = [];
-  $turns.text(score);
+  $turns.text(turns);
 
   for (var j = 0; j < cardsInPlay.length; j++) {
     var liToAppend = '<li class="card" data-image="' + cardsInPlay[j] + '"></li>';
@@ -59,6 +61,20 @@ function shuffle(newArray){
   return newArray;
 }
 
+function playSounds() {
+  var sounds = [
+    'sounds/sound1.wav',
+    'sounds/sound2.wav',
+    'sounds/sound3.wav',
+    'sounds/sound4.wav',
+    'sounds/sound5.wav',
+    'sounds/sound6.wav'
+  ];
+  var randomIndex = Math.floor(Math.random() * (sounds.length));
+  var winSound = new Audio(sounds[randomIndex]);
+  winSound.play();
+}
+
 function chooseCard() {
   var card = $(this);
 
@@ -76,19 +92,19 @@ function chooseCard() {
     // DO NOTHING
     return false;
 
-  // User has chosen 2 cards and it's a match
+    // User has chosen 2 cards and it's a match
   } else if (userChoices.length === 2 && checkForMatch()) {
-    score++;
-    $turns.text(score);
+    turns++;
+    $turns.text(turns);
     $messages.text('Match');
+    playSounds();
     userChoices = [];
 
-  // User has chosen 2 cards and it's not a match
+    // User has chosen 2 cards and it's not a match
   } else {
-    score++;
-    $turns.text(score);
+    turns++;
+    $turns.text(turns);
     $messages.text('Try again');
-
     setTimeout(function(userChoices) {
       userChoices.forEach(function(card) {
         card.html('');
